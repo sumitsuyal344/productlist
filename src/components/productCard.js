@@ -15,7 +15,7 @@ const ProductCard = ({ product, onDelete }) => {
   return (
     <Card
       sx={{
-        width: 320,
+        width: 360,
         height: 380,
         margin: 1,
         position: "relative",
@@ -23,23 +23,24 @@ const ProductCard = ({ product, onDelete }) => {
       }}
     >
       <Image
-        src={product.image} 
+        src={product.image}
         alt={product.title}
         width={100}
         height={100}
         objectFit="cover"
+        style={{ marginTop: "5px" }}
       />
       <CardContent>
-        <Typography variant="h6" color="white"> 
+        <Typography variant="h6" color="white">
           {product.title}
         </Typography>
         <Typography
           variant="body2"
-          color="white" 
+          color="white"
           sx={{
             maxHeight: 100,
             overflow: "hidden",
-            fontWeight: "bold", 
+            fontWeight: "bold",
           }}
         >
           {truncatedDescription}
@@ -57,12 +58,11 @@ const ProductCard = ({ product, onDelete }) => {
       >
         <Link href={`/productDetails/${product.id}`}>
           <a style={{ textDecoration: "none" }}>
-          <Button
+            <Button
               variant="contained"
               style={{
-                backgroundColor: "rgba(128, 0, 128, 0.5)", 
+                backgroundColor: "rgba(128, 0, 128, 0.5)",
                 color: "white",
-                
               }}
             >
               View Details

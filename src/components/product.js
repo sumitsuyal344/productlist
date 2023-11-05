@@ -97,7 +97,7 @@ const Product = () => {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-between",
-            width: "80%",
+            width: "90%",
             margin: "20px auto 0px auto",
           }}
         >
