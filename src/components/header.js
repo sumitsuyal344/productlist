@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 
 const Header = ({ setIsLoggedIn }) => {
   const router = useRouter();
-  const handleLogout = () => {
+  const handleLogout = (e) => {
     sessionStorage.clear();
-    setIsLoggedIn(false);
+    // setIsLoggedIn(false);
     router.replace("/login");
   };
 
