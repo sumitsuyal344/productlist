@@ -2,24 +2,45 @@ import React from "react";
 import { Card, CardContent, Typography, Box, Button } from "@mui/material";
 import { Link } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Image from "next/image";
 
 const ProductCard = ({ product, onDelete }) => {
-  const MAX_DESCRIPTION_LENGTH = 300;
+  const MAX_DESCRIPTION_LENGTH = 200;
 
   const truncatedDescription =
     product.description.length > MAX_DESCRIPTION_LENGTH
       ? product.description.substring(0, MAX_DESCRIPTION_LENGTH - 3) + "..."
       : product.description;
 
-  return(
-    
-    <Card sx={{ width: 320, height: 280, margin: 1, position: "relative" }}>
+  return (
+    <Card
+      sx={{
+        width: 320,
+        height: 380,
+        margin: 1,
+        position: "relative",
+        backgroundColor: "#777777",
+      }}
+    >
+      <Image
+        src={product.image} 
+        alt={product.title}
+        width={100}
+        height={100}
+        objectFit="cover"
+      />
       <CardContent>
-        <Typography variant="h6">{product.title}</Typography>
+        <Typography variant="h6" color="white"> 
+          {product.title}
+        </Typography>
         <Typography
           variant="body2"
-          color="text.secondary"
-          sx={{ maxHeight: 100, overflow: "hidden" }}
+          color="white" 
+          sx={{
+            maxHeight: 100,
+            overflow: "hidden",
+            fontWeight: "bold", 
+          }}
         >
           {truncatedDescription}
         </Typography>
@@ -36,7 +57,14 @@ const ProductCard = ({ product, onDelete }) => {
       >
         <Link href={`/productDetails/${product.id}`}>
           <a style={{ textDecoration: "none" }}>
-            <Button variant="contained" color="primary">
+          <Button
+              variant="contained"
+              style={{
+                backgroundColor: "rgba(128, 0, 128, 0.5)", 
+                color: "white",
+                
+              }}
+            >
               View Details
             </Button>
           </a>
