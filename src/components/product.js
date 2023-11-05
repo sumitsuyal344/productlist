@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ProductCard from "./productCard";
-import { Typography, CircularProgress } from "@mui/material";
+import { Typography, CircularProgress, TextField } from "@mui/material";
 import Header from "./header";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ const Product = () => {
         setProducts([...products, ...response.data]);
         setLoading(false);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const handleScroll = () => {
@@ -38,7 +40,7 @@ const Product = () => {
     return () => {
       container.removeEventListener("scroll", handleScroll);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, loading]);
 
   const handleDelete = (productId) => {
@@ -54,9 +56,28 @@ const Product = () => {
         setLoading(false);
       });
   };
+  useEffect(() => {
+    setFilteredProducts(
+      products.filter(
+        (product) =>
+          product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
+  }, [products, searchQuery]);
 
   return (
     <>
+      <div style={{ marginTop: "50px" }}>
+        <TextField
+          label="Search Products"
+          variant="outlined"
+          fullWidth
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{ margin: "20px 0" }}
+        />
+      </div>
       <Header />
       <div
         ref={containerRef}
@@ -68,9 +89,9 @@ const Product = () => {
           overflowY: "auto",
         }}
       >
-        <Typography variant="h4" sx={{ marginTop: "20px" }}>
+        {/* <Typography variant="h4" sx={{ marginTop: "20px" }}>
           Product List
-        </Typography>
+        </Typography> */}
         <div
           style={{
             display: "flex",
@@ -80,7 +101,7 @@ const Product = () => {
             margin: "20px auto 0px auto",
           }}
         >
-          {products?.map((product) => (
+          {filteredProducts?.map((product) => (
             <ProductCard
               key={product.id}
               product={product}
